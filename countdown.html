@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cpe-end</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Inter, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: url('assets/Julius-bg.gif') no-repeat center center fixed;
+        background-size: cover;
+      }
+
+      .countdown {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 500;
+        text-align: center;
+        background: rgba(255, 255, 0, 0.5); /* Semi-transparent background */
+        padding: 60px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      h1 {
+        font-size: 24px;
+        color: black;
+      }
+
+      #days {
+        font-size: 72px;
+        font-weight: bold;
+        color: red;
+        margin: 60px 0 60px 0;
+      }
+
+      #time {
+        font-size: 32px;
+        font-weight: bold;
+        color: green;
+      }
+
+      #musicToggle {
+        margin-top: 15px;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        background-color: #ff5733;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      #musicToggle:hover {
+        background-color: #e04d2a;
+      }
+
+      /* Style the bubble images */
+      .bubble {
+        position: absolute;
+        width: 100px; /* adjust the size as needed */
+        height: 100px; /* adjust the size as needed */
+        border-radius: 50%;
+        cursor: grab;
+      }
+
+      /* Add some basic animation to make it look like bubbles */
+      .bubble {
+        animation: float 3s infinite;
+      }
+
+      /* Update the CSS to match the new HTML structure */
+      .post-wrapper{
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        border: 2px solid var(--borderColor);
+      }
+    
+      .post{
+          width: 300px;
+          height: 300px;
+          border-radius: 50%;
+      
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          position: absolute;
+
+          border: 2px solid black;
+      
+          transition: box-shadow 0.2s ease-in-out; /* Smooth effect on hover */
+          cursor: grab; /* Indicates draggable */
+      }
+      
+      .post:active {
+          cursor: grabbing; /* Change cursor when dragging */
+          box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="post-wrapper">
+
+      <div class="countdown">
+        <h1>Days Until COPC Results</h1>
+        <p id="days"></p>
+        <p id="time"></p>
+        <button id="musicToggle">🔊 Play/Pause Music</button>
+      </div>
+
+      <audio id="backgroundMusic" loop>
+      </audio>
+
+      <!-- Add multiple bubble elements -->
+      <img src="assets/Natagad.png" class="post"/>
+      <img src="assets/jems.jpg" class="post"/>
+      <img src="assets/paclibar.jpg" class="post"/>
+      <img src="assets/val.jpg" class="post"/>
+      <img src="assets/slep.jpg" class="post"/>
+      <img src="assets/ray.png" class="post"/>
+      <img src="assets/kyl.jpg" class="post"/>
+      <img src="assets/char.jpg" class="post"/>
+      <img src="assets/mayet.jpg" class="post"/>
+      <img src="assets/mel.jpg" class="post"/>
+      <img src="assets/jljul.png" class="post"/>
+      <img src="assets/kerv.png" class="post"/>
+    </div>
+
+    <script>
+      function updateCountdown() {
+        const targetDate = new Date("April 11, 2025 00:00:00");
+        const now = new Date();
+        const timeDifference = targetDate - now;
+
+        // Calculate days, hours, minutes, and seconds
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor(
+          (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        // Update HTML elements
+        document.getElementById("days").innerText = days + " Days";
+        document.getElementById("time").innerText =
+          hours.toString().padStart(2, "0") +
+          ":" +
+          minutes.toString().padStart(2, "0") +
+          ":" +
+          seconds.toString().padStart(2, "0");
+
+        // Repeat the function every second
+        setTimeout(updateCountdown, 1000);
+      }
+
+      const music = document.getElementById("backgroundMusic");
+
+      // Music Control
+      const musicToggle = document.getElementById("musicToggle");
+
+      musicToggle.addEventListener("click", () => {
+        music.play(); // Start playing music
+        musicToggle.style.display = "none"; // Hide the button
+      });
+
+      const musicFiles = ["music/Betsy, Мария Янковская - Sigma Boy.mp3", 
+      "music/Ayaw Nag Adik-adik By Jhay-know & Lloyd Jay (RVW).mp3", 
+      "music/Dionela - Marilag.mp3"]; // add more songs to this array
+
+      function playRandomSong() {
+        const randomIndex = Math.floor(Math.random() * musicFiles.length);
+        const randomSong = musicFiles[randomIndex];
+        music.src = randomSong;
+        music.play();
+      }
+
+// Call the function when the music toggle is clicked
+musicToggle.addEventListener("click", playRandomSong);
+
+      // Initialize countdown when page loads
+      window.onload = updateCountdown;
+
+      // Initialize bubble animation system
+      document.addEventListener("DOMContentLoaded", function () {
+        const BUBBLE_SIZE = 200; // Size of each bubble element
+        const MIN_DISTANCE = 200; // Minimum distance before collision
+        const SPEED_FACTOR = 0.8; // Movement speed multiplier
+
+        const bubbles = document.querySelectorAll(".post");
+        const container = document.querySelector(".post-wrapper");
+        let bubbleData = [];
+
+        /**
+         * Generates random position and velocity for a bubble
+         * @returns {Object} Initial position and velocity values
+         */
+        function getRandomPosition() {
+          const containerWidth = container.clientWidth;
+          const containerHeight = container.clientHeight;
+
+          return {
+            x: Math.random() * (containerWidth - BUBBLE_SIZE),
+            y: Math.random() * (containerHeight - BUBBLE_SIZE),
+            vx: (Math.random() - 0.5) * SPEED_FACTOR,
+            vy: (Math.random() - 0.5) * SPEED_FACTOR,
+            isDragging: false,
+          };
+        }
+
+        /**
+         * Initializes bubble positions and sets up event listeners
+         */
+        function initializeBubbles() {
+          bubbles.forEach((bubble, index) => {
+            const position = getRandomPosition();
+            bubbleData.push({ element: bubble, ...position });
+            setupDragEvents(bubble, index);
+          });
+        }
+
+        /**
+         * Sets up drag event listeners for a bubble
+         * @param {HTMLElement} bubble - The bubble element
+         * @param {number} index - Index of the bubble in bubbleData array
+         */
+        function setupDragEvents(bubble, index) {
+          bubble.addEventListener("mousedown", (event) =>
+            startDrag(event, index)
+          );
+          document.addEventListener("mouseup", stopDrag);
+          document.addEventListener("mousemove", drag);
+        }
+
+        let draggedBubble = null;
+        let offsetX = 0,
+          offsetY = 0;
+
+        function startDrag(event, index) {
+          draggedBubble = bubbleData[index];
+          draggedBubble.isDragging = true;
+
+          // Get mouse position relative to the bubble
+          offsetX = event.clientX - draggedBubble.x;
+          offsetY = event.clientY - draggedBubble.y;
+        }
+
+        function stopDrag() {
+          if (draggedBubble) {
+            draggedBubble.isDragging = false;
+            draggedBubble = null;
+          }
+        }
+
+        function drag(event) {
+          if (draggedBubble && draggedBubble.isDragging) {
+            let containerRect = container.getBoundingClientRect();
+            let newX = event.clientX - offsetX;
+            let newY = event.clientY - offsetY;
+
+            // Keep within container boundaries
+            newX = Math.max(0, Math.min(containerRect.width - 300, newX));
+            newY = Math.max(0, Math.min(containerRect.height - 300, newY));
+
+            draggedBubble.x = newX;
+            draggedBubble.y = newY;
+          }
+        }
+
+        /**
+         * Updates bubble positions and handles collisions
+         */
+        function updatePositions() {
+          const containerWidth = container.clientWidth;
+          const containerHeight = container.clientHeight;
+
+          moveBubbles(containerWidth, containerHeight);
+          handleCollisions();
+          applyPositions();
+          requestAnimationFrame(updatePositions);
+        }
+
+        /**
+         * Moves bubbles that aren't being dragged
+         * @param {number} containerWidth - Width of the container
+         * @param {number} containerHeight - Height of the container
+         */
+        function moveBubbles(containerWidth, containerHeight) {
+          bubbleData.forEach((bubble) => {
+            if (!bubble.isDragging) {
+              bubble.x += bubble.vx;
+              bubble.y += bubble.vy;
+              handleWallCollision(bubble, containerWidth, containerHeight);
+            }
+          });
+        }
+
+        /**
+         * Handles collision with container walls
+         * @param {Object} bubble - Bubble data object
+         * @param {number} containerWidth - Width of the container
+         * @param {number} containerHeight - Height of the container
+         */
+        function handleWallCollision(bubble, containerWidth, containerHeight) {
+          if (bubble.x <= 0 || bubble.x >= containerWidth - BUBBLE_SIZE) {
+            bubble.vx *= -1;
+          }
+          if (bubble.y <= 0 || bubble.y >= containerHeight - BUBBLE_SIZE) {
+            bubble.vy *= -1;
+          }
+        }
+
+        /**
+         * Handles collisions between bubbles
+         */
+        function handleCollisions() {
+          for (let i = 0; i < bubbleData.length; i++) {
+            for (let j = i + 1; j < bubbleData.length; j++) {
+              const b1 = bubbleData[i];
+              const b2 = bubbleData[j];
+              const dx = b2.x - b1.x;
+              const dy = b2.y - b1.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+
+              if (distance < MIN_DISTANCE) {
+                handleBubbleCollision(b1, b2, dx, dy, distance);
+              }
+            }
+          }
+        }
+
+        /**
+         * Handles collision between two bubbles
+         * @param {Object} b1 - First bubble data
+         * @param {Object} b2 - Second bubble data
+         * @param {number} dx - X distance between bubbles
+         * @param {number} dy - Y distance between bubbles
+         * @param {number} distance - Distance between bubble centers
+         */
+        function handleBubbleCollision(b1, b2, dx, dy, distance) {
+          // Swap velocities
+          [b1.vx, b2.vx] = [b2.vx, b1.vx];
+          [b1.vy, b2.vy] = [b2.vy, b1.vy];
+
+          // Push bubbles apart to prevent overlap
+          const overlap = MIN_DISTANCE - distance;
+          const pushX = (dx / distance) * (overlap / 2);
+          const pushY = (dy / distance) * (overlap / 2);
+
+          b1.x -= pushX;
+          b1.y -= pushY;
+          b2.x += pushX;
+          b2.y += pushY;
+        }
+
+        /**
+         * Applies calculated positions to bubble elements
+         */
+        function applyPositions() {
+          bubbleData.forEach((bubble) => {
+            bubble.element.style.transform = `translate(${bubble.x}px, ${bubble.y}px)`;
+          });
+        }
+
+        // Initialize the bubble system
+        initializeBubbles();
+
+        requestAnimationFrame(updatePositions);
+      });
+
+    </script>
+  </body>
+</html>
